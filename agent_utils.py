@@ -1,5 +1,6 @@
 import numpy as np
 from GOPS_environment import GOPS
+from BasicAgents import GOPSAgent
 from utils import flip_state, sgn, get_num_cards
 
 """
@@ -19,7 +20,7 @@ def get_legal_moves(state: np.ndarray, player: int) -> np.ndarray[int]:
     return cards_idx + 1
 
 
-def collect_data(game: GOPS, train_agent, opp_agent, expl_rate: float, num_episodes: int):
+def collect_data(game: GOPS, train_agent: GOPSAgent, opp_agent: GOPSAgent, expl_rate: float, num_episodes: int):
     """
     Data collection loop
     :param game: GOPS game
