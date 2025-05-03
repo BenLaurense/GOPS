@@ -1,5 +1,6 @@
 import numpy as np
 from utils import flip_state
+from BasicAgents import GOPSAgent
 
 
 class GOPS:
@@ -10,7 +11,7 @@ class GOPS:
         (it's a binary array except for current value card, which is an integer entry representing the card's value)
         - Actions are represented by the VALUE of the card being played (from 1 to num_cards)
     """
-    def __init__(self, num_cards):
+    def __init__(self, num_cards: int):
         self.num_cards = num_cards
         self.size = 3*self.num_cards+3
         self.state = np.ones((1, self.size), dtype=int)
@@ -34,7 +35,7 @@ class GOPS:
         self.state[0, chosen_value_card+2] = 0
         return False
 
-    def step(self, action: int, action_opp: int):
+    def step(self, action: int, action_opp: int) -> tuple[np.ndarray, bool]:
         self.state[0, action+self.num_cards+2] = 0
         self.state[0, action_opp+self.num_cards*2+2] = 0
 
@@ -44,7 +45,7 @@ class GOPS:
         return self.state.copy(), done # Copy is necessary I think
 
 
-def game_loop(game, agent1, agent2, num_games, num_cards):
+def game_loop(game: GOPS, agent1: GOPSAgent, agent2: GOPSAgent, num_games: int) -> None:
     for _ in range(num_games):
         done = False
         s_ = game.state.copy()
