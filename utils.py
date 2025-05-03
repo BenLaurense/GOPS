@@ -47,3 +47,15 @@ def unpack_state(state: np.ndarray) -> dict:
         "val_cards": val_cards,
         "cards_1": cards_1, "cards_2": cards_2
     }
+
+def get_legal_moves(state: np.ndarray, player: int) -> np.ndarray[int]:
+    """
+    Gets allowed actions for a state
+    :param state: state to consider
+    :param player: player taking the actions
+    :param num_cards: number of cards in game
+    :return: ndarray of values of cards that can be played
+    """
+    num_cards = get_num_cards(state)
+    cards_idx = np.nonzero(state[0, num_cards*player+3:num_cards*(player+1)+3])[0]
+    return cards_idx + 1 # Convention

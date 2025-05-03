@@ -1,7 +1,6 @@
 from abc import ABC
 import numpy as np
-from utils import unpack_state
-from agent_utils import get_legal_moves
+from utils import unpack_state, get_legal_moves
 
 """
 Simple agents to play the game
@@ -44,6 +43,6 @@ class RandomAgent(GOPSAgent):
         pass
 
     @staticmethod
-    def get_action(self, state):
+    def get_action(state, *args):
         legal_moves = get_legal_moves(state, 1)
         return np.random.choice(legal_moves), None  # get_action returns move and logprob

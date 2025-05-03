@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torch.distributions import Categorical
 from BasicAgents import GOPSAgent
-from agent_utils import get_legal_moves
+from utils import get_legal_moves
 
 """
 Basic ML benchmark: vanilla policy gradient.
@@ -44,7 +44,7 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
     def get_action(self, state, expl_rate=0.0):
         cat = self.forward(state)
         action_raw = cat.sample()
-        action = action_raw.item() + 1    # Indexing convention
+        action = action_raw.item() + 1 # Indexing convention
         legal_actions = get_legal_moves(state, 1)
 
         explore = np.random.uniform(0, 1)
@@ -53,5 +53,5 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
             # print("blah blah blah {} {}".format(state, cat.probs))
             return action, cat.log_prob(action_raw)
         # Otherwise, take a random legal action
-        action = np.random.choice(legal_actions)
+        action = torch.tensor(np.random.choice(legal_actions)) - 1 # Indexing convention
         return action, cat.log_prob(action)

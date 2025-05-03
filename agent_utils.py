@@ -1,23 +1,10 @@
-import numpy as np
 from GOPS_environment import GOPS
 from BasicAgents import GOPSAgent
-from utils import flip_state, sgn, get_num_cards
+from utils import flip_state, sgn
 
 """
 Helper functions for agents
 """
-
-def get_legal_moves(state: np.ndarray, player: int) -> np.ndarray[int]:
-    """
-    Gets allowed actions for a state
-    :param state: state to consider
-    :param player: player taking the actions
-    :param num_cards: number of cards in game
-    :return: ndarray of values of cards that can be played
-    """
-    num_cards = get_num_cards(state)
-    cards_idx = np.nonzero(state[0, num_cards*player+3:num_cards*(player+1)+3])[0]
-    return cards_idx + 1
 
 
 def collect_data(game: GOPS, train_agent: GOPSAgent, opp_agent: GOPSAgent, expl_rate: float, num_episodes: int):
