@@ -33,11 +33,12 @@ def collect_data(game: GOPS, train_agent: GOPSAgent, opp_agent: GOPSAgent, expl_
             a2, _ = opp_agent.get_action(flip_state(s), 0.0)
             s_, done = game.step(a1, a2)
 
-            r.append(s_[0, 0] - s_[0, 1])
+            reward = s_[0, 0].item() - s_[0, 1].item()
+            r.append(reward)
             batch_logprobs.append(a1_logprob)
 
         # Subject to tweaking lol
-        tweaked_reward = list(map(lambda x: x + 100*sgn(s_[0, 0] - s_[0, 1]), r))
+        tweaked_reward = list(map(lambda x: x + 10*sgn(reward), r))
         batch_rewards += tweaked_reward  # Or other functions?
 
         game.reset()
