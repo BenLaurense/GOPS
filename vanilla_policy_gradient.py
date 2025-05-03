@@ -49,7 +49,7 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
 
         explore = np.random.uniform(0, 1)
         # If the action is legal and we DON'T explore, take that action
-        if action in legal_actions and explore > expl_rate:
+        if action in legal_actions and explore < expl_rate:
             # print("blah blah blah {} {}".format(state, cat.probs))
             return action, cat.log_prob(action_raw)
         # Otherwise, take a random legal action
