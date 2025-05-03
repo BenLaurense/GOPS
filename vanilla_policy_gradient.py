@@ -41,18 +41,17 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
         action_probs = self.layers(state)
         return Categorical(probs=action_probs)
 
-    def get_action(self, state, expl_rate=0):
+    def get_action(self, state, expl_rate=0.0):
         cat = self.forward(state)
         action_raw = cat.sample()
         action = action_raw.item() + 1    # Indexing convention
         legal_actions = get_legal_moves(state, 1)
 
         explore = np.random.uniform(0, 1)
-        if explore < expl_rate:
-            # Do a random action
-            return np.random.choice(legal_actions), cat.log_prob(action_raw)
-        if action in legal_actions:
+        # If the action is legal and we DON'T explore, take that action
+        if action in legal_actions and explore > expl_rate:
             # print("blah blah blah {} {}".format(state, cat.probs))
             return action, cat.log_prob(action_raw)
-        # If action was illegal, return a random legal action
-        return np.random.choice(legal_actions), cat.log_prob(action_raw)
+        # Otherwise, take a random legal action
+        action = np.random.choice(legal_actions)
+        return action, cat.log_prob(action)
