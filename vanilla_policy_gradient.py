@@ -1,10 +1,8 @@
-import math
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.distributions import Categorical
-from tqdm import tqdm
-from GOPS_environment import GOPS
+from BasicAgents import GOPSAgent
 from agent_utils import get_legal_moves
 
 """
@@ -18,8 +16,8 @@ Choose the former for now
 """
 
 
-class PolicyNet(nn.Module):
-    def __init__(self, num_cards, widths=[10, 10, 4, 4], path=None):
+class PolicyNetAgent(nn.Module, GOPSAgent):
+    def __init__(self, num_cards: int, widths: list[int]=[10, 10, 4, 4], path=None):
         super().__init__()
 
         self.s_size, self.a_size = 3*num_cards+3, num_cards  # Player hands and value cards, and the current card and score
@@ -47,7 +45,7 @@ class PolicyNet(nn.Module):
         cat = self.forward(state)
         action_raw = cat.sample()
         action = action_raw.item() + 1    # Indexing convention
-        legal_actions = get_legal_moves(state, 1, self.a_size)
+        legal_actions = get_legal_moves(state, 1)
 
         explore = np.random.uniform(0, 1)
         if explore < expl_rate:
@@ -58,6 +56,3 @@ class PolicyNet(nn.Module):
             return action, cat.log_prob(action_raw)
         # If action was illegal, return a random legal action
         return np.random.choice(legal_actions), cat.log_prob(action_raw)
-
-
-
