@@ -19,9 +19,7 @@ Choose the former for now
 class PolicyNetAgent(nn.Module, GOPSAgent):
     def __init__(self, num_cards: int, widths: list[int]=[10, 4], path=None):
         super().__init__()
-
         self.s_size, self.a_size = 3*num_cards+3, num_cards  # Player hands and value cards, and the current card and score
-
         self.layers = nn.Sequential(
             nn.Linear(self.s_size, widths[0]),
             nn.ReLU()
@@ -36,12 +34,12 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
             self.load_state_dict(torch.load(path))
         return
 
-    def forward(self, state):
+    def forward(self, state: np.ndarray) -> Categorical:
         state = torch.as_tensor(state, dtype=torch.float32)  # Environment is numpy-based; convert
         action_probs = self.layers(state)
         return Categorical(probs=action_probs)
 
-    def get_action(self, state, expl_rate=0.0):
+    def get_action(self, state: np.ndarray, expl_rate: float=0.0) -> tuple[int, float]:
         cat = self.forward(state)
         action = cat.sample() + 1 # Indexing convention
         legal_actions = get_legal_moves(state, 1)

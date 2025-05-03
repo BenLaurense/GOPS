@@ -9,7 +9,7 @@ Simple agents to play the game
 
 
 class GOPSAgent(ABC):
-    def get_action(self, state, *args):
+    def get_action(self, state: np.ndarray, *args) -> tuple[int, float | None]:
         pass
 
 
@@ -18,7 +18,7 @@ class HumanAgent(GOPSAgent):
         pass
 
     @staticmethod
-    def get_action(state, *args):
+    def get_action(state: np.ndarray, *args) -> tuple[int, float | None]:
         # TODO: pygame support?
         sd = unpack_state(state)
         print(sd)
@@ -43,6 +43,6 @@ class RandomAgent(GOPSAgent):
         pass
 
     @staticmethod
-    def get_action(state, *args):
+    def get_action(state: np.ndarray, *args) -> tuple[int, float | None]:
         legal_moves = get_legal_moves(state, 1)
         return np.random.choice(legal_moves), None  # get_action returns move and logprob
