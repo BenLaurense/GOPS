@@ -1,5 +1,5 @@
 import numpy as np
-from Utils import flip_state, get_legal_moves
+from utils import flip_state, get_legal_moves
 
 
 class GOPS:

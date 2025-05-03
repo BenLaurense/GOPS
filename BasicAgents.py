@@ -1,5 +1,5 @@
 import numpy as np
-from Utils import get_legal_moves, unpack_state
+from utils import get_legal_moves, unpack_state
 
 """
 Simple agents to play the game
