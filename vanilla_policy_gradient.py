@@ -17,7 +17,7 @@ Choose the former for now
 
 
 class PolicyNetAgent(nn.Module, GOPSAgent):
-    def __init__(self, num_cards: int, widths: list[int]=[10, 10, 4, 4], path=None):
+    def __init__(self, num_cards: int, widths: list[int]=[10, 4], path=None):
         super().__init__()
 
         self.s_size, self.a_size = 3*num_cards+3, num_cards  # Player hands and value cards, and the current card and score
@@ -43,15 +43,13 @@ class PolicyNetAgent(nn.Module, GOPSAgent):
 
     def get_action(self, state, expl_rate=0.0):
         cat = self.forward(state)
-        action_raw = cat.sample()
-        action = action_raw.item() + 1 # Indexing convention
+        action = cat.sample() + 1 # Indexing convention
         legal_actions = get_legal_moves(state, 1)
 
         explore = np.random.uniform(0, 1)
         # If the action is legal and we DON'T explore, take that action
-        if action in legal_actions and explore < expl_rate:
-            # print("blah blah blah {} {}".format(state, cat.probs))
-            return action, cat.log_prob(action_raw)
+        if action.item() in legal_actions and explore > expl_rate:
+            return action.item(), cat.log_prob(action - 1)
         # Otherwise, take a random legal action
-        action = torch.tensor(np.random.choice(legal_actions)) - 1 # Indexing convention
-        return action, cat.log_prob(action)
+        action = torch.tensor(np.random.choice(legal_actions))
+        return action.item(), cat.log_prob(action - 1)
