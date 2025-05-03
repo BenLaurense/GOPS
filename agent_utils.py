@@ -1,12 +1,12 @@
 import numpy as np
 from GOPS_environment import GOPS
-from utils import flip_state, sgn
+from utils import flip_state, sgn, get_num_cards
 
 """
 Helper functions for agents
 """
 
-def get_legal_moves(state, player, num_cards):
+def get_legal_moves(state: np.ndarray, player: int) -> np.ndarray[int]:
     """
     Gets allowed actions for a state
     :param state: state to consider
@@ -14,11 +14,12 @@ def get_legal_moves(state, player, num_cards):
     :param num_cards: number of cards in game
     :return: ndarray of values of cards that can be played
     """
+    num_cards = get_num_cards(state)
     cards_idx = np.nonzero(state[0, num_cards*player+3:num_cards*(player+1)+3])[0]
     return cards_idx + 1
 
 
-def collect_data(game: GOPS, train_agent, opp_agent, expl_rate, num_episodes):
+def collect_data(game: GOPS, train_agent, opp_agent, expl_rate: float, num_episodes: int):
     """
     Data collection loop
     :param game: GOPS game
@@ -41,7 +42,7 @@ def collect_data(game: GOPS, train_agent, opp_agent, expl_rate, num_episodes):
         while not done:
             s = s_
             a1, a1_logprob = train_agent.get_action(s, expl_rate)
-            a2, _ = opp_agent.get_action(flip_state(s, game.num_cards), 0.0)
+            a2, _ = opp_agent.get_action(flip_state(s), 0.0)
             s_, done = game.step(a1, a2)
 
             r.append(s_[0, 0] - s_[0, 1])

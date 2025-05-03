@@ -1,5 +1,5 @@
 import numpy as np
-from utils import flip_state, get_legal_moves
+from utils import flip_state
 
 
 class GOPS:
@@ -51,7 +51,7 @@ def game_loop(game, agent1, agent2, num_games, num_cards):
         while not done:
             s = s_
             a1, _ = agent1.get_action(s)
-            a2, _ = agent2.get_action(flip_state(s, num_cards))
+            a2, _ = agent2.get_action(flip_state(s))
             s_, done = game.step(a1, a2)
             # print(s, a1, a2, s_, done)
         s1, s2 = game.state[0, 0], game.state[0, 1]

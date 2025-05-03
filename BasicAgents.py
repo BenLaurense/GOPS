@@ -1,5 +1,6 @@
 import numpy as np
-from utils import get_legal_moves, unpack_state
+from utils import unpack_state
+from agent_utils import get_legal_moves
 
 """
 Simple agents to play the game
@@ -14,7 +15,7 @@ class HumanAgent:
 
     def get_action(self, state, *args):
         # TODO: pygame support?
-        sd = unpack_state(state, self.num_cards)
+        sd = unpack_state(state)
         print(sd)
         print("="*40)
         if self.player == 1:
@@ -22,9 +23,9 @@ class HumanAgent:
         print("Current value card is {}".format(sd["curr_card"]))
         value_cards = np.nonzero(sd["val_cards"])[0] + 1
         print("Remaining value cards: {}".format(value_cards))
-        legal_moves = get_legal_moves(state, self.player, self.num_cards)
+        legal_moves = get_legal_moves(state, self.player)
         print("Legal moves are {}".format(legal_moves))
-        opp_legal_moves = get_legal_moves(state, 3 - self.player, self.num_cards)
+        opp_legal_moves = get_legal_moves(state, 3 - self.player)
         print("Opponent's legal moves are {}".format(opp_legal_moves))
 
         move = -1
@@ -39,5 +40,5 @@ class RandomAgent:
         self.num_cards = num_cards
 
     def get_action(self, state):
-        legal_moves = get_legal_moves(state, self.player, self.num_cards)
+        legal_moves = get_legal_moves(state, self.player)
         return np.random.choice(legal_moves), None  # get_action returns move and logprob
