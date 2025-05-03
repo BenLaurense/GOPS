@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="655aeb4c-26c5-41a7-9d7a-6d6daa3a6f85" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="655aeb4c-26c5-41a7-9d7a-6d6daa3a6f85" name="Changes" comment="fix">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GOPS_environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOPS_environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOPS_policynet.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOPS_VPG.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,23 +25,42 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;BenLaurense&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BenLaurense/GOPS.git&quot;,
+    &quot;accountId&quot;: &quot;0f198964-f48e-4982-80c5-dddbb36e1e2d&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2V54MyRYQK0LrhGupqzJAZ5sxyV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/benla/Desktop/Coding Projects/Project Euler Solutions"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/benla/Documents/GitHub/suit-trading-game-bot&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GOPS" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -67,6 +86,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-fc1d50d2d915-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.24978.54" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -76,6 +102,135 @@
       <option name="presentableId" value="Default" />
       <updated>1694112562472</updated>
     </task>
+    <task id="LOCAL-00001" summary="large cleanup and refactor">
+      <option name="closed" value="true" />
+      <created>1746293026653</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746293026653</updated>
+    </task>
+    <task id="LOCAL-00002" summary="propagate refactor">
+      <option name="closed" value="true" />
+      <created>1746293047785</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746293047785</updated>
+    </task>
+    <task id="LOCAL-00003" summary="random stuff">
+      <option name="closed" value="true" />
+      <created>1746293066573</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746293066573</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor VPG implememtation">
+      <option name="closed" value="true" />
+      <created>1746293825287</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746293825287</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactor everything so I dont need to pass the number of cards to every function">
+      <option name="closed" value="true" />
+      <created>1746294265830</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746294265830</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add agent base class + cleanup">
+      <option name="closed" value="true" />
+      <created>1746294522627</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746294522627</updated>
+    </task>
+    <task id="LOCAL-00007" summary="oops">
+      <option name="closed" value="true" />
+      <created>1746294596091</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746294596091</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix the exploration code">
+      <option name="closed" value="true" />
+      <created>1746296892845</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746296892845</updated>
+    </task>
+    <task id="LOCAL-00009" summary="oops">
+      <option name="closed" value="true" />
+      <created>1746296956042</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746296956042</updated>
+    </task>
+    <task id="LOCAL-00010" summary="small fixes">
+      <option name="closed" value="true" />
+      <created>1746298872928</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746298872928</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix output type">
+      <option name="closed" value="true" />
+      <created>1746301470451</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746301470451</updated>
+    </task>
+    <task id="LOCAL-00012" summary="type hints">
+      <option name="closed" value="true" />
+      <created>1746301848085</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746301848085</updated>
+    </task>
+    <task id="LOCAL-00013" summary="type hints + fix">
+      <option name="closed" value="true" />
+      <created>1746301945461</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746301945461</updated>
+    </task>
+    <task id="LOCAL-00014" summary="fix">
+      <option name="closed" value="true" />
+      <created>1746304541544</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746304541544</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="large cleanup and refactor" />
+    <MESSAGE value="propagate refactor" />
+    <MESSAGE value="random stuff" />
+    <MESSAGE value="refactor VPG implememtation" />
+    <MESSAGE value="refactor everything so I dont need to pass the number of cards to every function" />
+    <MESSAGE value="Add agent base class + cleanup" />
+    <MESSAGE value="fix the exploration code" />
+    <MESSAGE value="oops" />
+    <MESSAGE value="small fixes" />
+    <MESSAGE value="fix output type" />
+    <MESSAGE value="type hints" />
+    <MESSAGE value="type hints + fix" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>

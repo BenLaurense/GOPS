@@ -54,7 +54,6 @@ def game_loop(game: GOPS, agent1: GOPSAgent, agent2: GOPSAgent, num_games: int) 
             a1, _ = agent1.get_action(s)
             a2, _ = agent2.get_action(flip_state(s))
             s_, done = game.step(a1, a2)
-            # print(s, a1, a2, s_, done)
         s1, s2 = game.state[0, 0], game.state[0, 1]
         print('Final scores are {}, {}'.format(s1, s2))
         if s1 > s2:

@@ -21,7 +21,6 @@ class HumanAgent(GOPSAgent):
     def get_action(state: np.ndarray, *args) -> tuple[int, float | None]:
         # TODO: pygame support?
         sd = unpack_state(state)
-        print(sd)
         print("="*40)
         print("Your score is {}. Opponent's score is {}".format(sd["score_1"], sd["score_2"]))
         print("Current value card is {}".format(sd["curr_card"]))
