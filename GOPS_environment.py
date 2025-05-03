@@ -1,21 +1,17 @@
-import math
 import numpy as np
-from random import random
-
-
-"""
-Environment for GOPS
-    - Players are numbered 1 and 2
-    - State is represented by a 1xn binary array [scores | current value card | value cards | P1 cards | P2 cards]
-    (it's a binary array except for current value card, which is an integer entry representing the card's value) 
-    - Actions are represented by the VALUE of the card being played (from 1 to num_cards)
-    - 
-"""
+from Utils import flip_state, get_legal_moves
 
 
 class GOPS:
-    def __init__(self):
-        self.num_cards = 3
+    """
+    Environment for GOPS
+        - Players are numbered 1 and 2
+        - State is represented by a 1xn binary array [scores | current value card | value cards | P1 cards | P2 cards]
+        (it's a binary array except for current value card, which is an integer entry representing the card's value)
+        - Actions are represented by the VALUE of the card being played (from 1 to num_cards)
+    """
+    def __init__(self, num_cards):
+        self.num_cards = num_cards
         self.size = 3*self.num_cards+3
         self.state = np.ones((1, self.size), dtype=int)
         self.reset()
@@ -47,45 +43,25 @@ class GOPS:
         done = self.draw_value_card()
         return self.state.copy(), done # Copy is necessary I think
 
-    def get_legal_moves(self, player):
-        cards_idx = np.nonzero(self.state[0, self.num_cards*player+3:self.num_cards*(player+1)+3])[0]
-        return cards_idx + 1
 
-
-def game_loop(game, agent1, agent2, num_games):
+def game_loop(game, agent1, agent2, num_games, num_cards):
     for _ in range(num_games):
         done = False
         s_ = game.state.copy()
         while not done:
             s = s_
-            a1, a2 = agent1.get_action(s, game.get_legal_moves(1)), \
-                agent2.get_action(s, game.get_legal_moves(2))
+            a1, _ = agent1.get_action(s)
+            a2, _ = agent2.get_action(flip_state(s, num_cards))
             s_, done = game.step(a1, a2)
-            print(s, a1, a2, s_, done)
-        print('Final scores are {}, {}'.format(game.state[0, 0], game.state[0, 1]))
+            # print(s, a1, a2, s_, done)
+        s1, s2 = game.state[0, 0], game.state[0, 1]
+        print('Final scores are {}, {}'.format(s1, s2))
+        if s1 > s2:
+            print("Player 1 won!")
+        elif s1 < s2:
+            print("Player 2 won!")
+        else:
+            print("Draw!")
         game.reset()
     return
 
-
-class HumanAgent:
-    def __init__(self, player):
-        self.player = player
-
-    def get_action(self, state, legal_moves):
-        print(state)
-        move = int(input("Choose a valid move:"))
-        return move
-
-
-class RandomAgent:
-    def __init__(self, player):
-        self.player = player
-
-    def get_action(self, state, legal_moves):
-        return np.random.choice(legal_moves)
-
-
-H1 = HumanAgent(1)
-H2 = HumanAgent(2)
-G = GOPS()
-game_loop(G, H1, H2, 1)
