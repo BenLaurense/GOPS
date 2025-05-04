@@ -1,9 +1,12 @@
+import math
 import numpy as np
 import torch
-import torch.nn as nn
-from torch.distributions import Categorical
-from BasicAgents import GOPSAgent
-from utils import get_legal_moves
+from GOPS_environment import GOPS
+from BasicAgents import GOPSAgent, RandomAgent
+from RLAgents import PolicyNetAgent
+from tqdm import tqdm
+from training_utils import collect_trajectories, profile
+from utils import sgn
 
 """
 Basic ML benchmark: vanilla policy gradient.
@@ -15,39 +18,86 @@ until the end of the game. Several ways to propagate reward.
 Choose the former for now
 """
 
+def vanilla_policy_gradient(
+        num_cards: int,
+        num_epochs: int,
+        max_lr: float, min_lr: float, lr_decay: float,
+        max_expl: float, min_expl: float, expl_decay: float,
+        start_path: str = None, end_path: str = None
+):
+    """
+    Training loop with learning rate deca, and epsilon-greedy exploration
+    :param num_cards:
+    :param num_epochs:
+    :param max_lr:
+    :param min_lr:
+    :param lr_decay:
+    :param max_expl:
+    :param min_expl:
+    :param expl_decay:
+    :param start_path:
+    :param end_path:
+    :return:
+    """
+    env = GOPS(num_cards)
+    agent, opp = PolicyNetAgent(num_cards, path=start_path), PolicyNetAgent(num_cards, path=start_path)
+    profiling_agent = RandomAgent()
+    avg_profiling_scores, avg_training_scores, rewards = [], [], []
+    param_traces = [[], [], [], []]
 
-class PolicyNetAgent(nn.Module, GOPSAgent):
-    def __init__(self, num_cards: int, widths: list[int]=[10, 4], path=None):
-        super().__init__()
-        self.s_size, self.a_size = 3*num_cards+3, num_cards  # Player hands and value cards, and the current card and score
-        self.layers = nn.Sequential(
-            nn.Linear(self.s_size, widths[0]),
-            nn.ReLU()
-        )
-        for i in range(len(widths) - 1):
-            self.layers.append(nn.Linear(widths[i], widths[i + 1]))
-            self.layers.append(nn.ReLU())
-        self.layers.append(nn.Linear(widths[-1], self.a_size))
-        self.layers.append(nn.Softmax(dim=1))
+    optim = torch.optim.SGD(params=agent.parameters(), lr=max_lr)
+    expl_rate = max_expl
+    for epoch in tqdm(range(1, num_epochs + 2)):
+        # Collect training data
+        batch_logprobs, batch_rewards = collect_trajectories(env, agent, opp, expl_rate, 5 * num_cards)
+        # Compute pseudo-loss
+        pseudo_loss = -(
+                torch.concat(batch_logprobs, dim=0) * torch.as_tensor(batch_rewards, dtype=torch.int32)).mean()
+        # Step model
+        optim.zero_grad()
+        pseudo_loss.backward()
+        optim.step()
 
-        if path is not None:
-            self.load_state_dict(torch.load(path))
-        return
+        # Save model each epoch
+        if end_path is not None:
+            torch.save(agent.state_dict(), end_path)
 
-    def forward(self, state: np.ndarray) -> Categorical:
-        state = torch.as_tensor(state, dtype=torch.float32)  # Environment is numpy-based; convert
-        action_probs = self.layers(state)
-        return Categorical(probs=action_probs)
+        # Update opponent model every x epochs, decay lr, decay exploration rate, and save model
+        if not epoch % 200:
+            opp.load_state_dict(torch.load(end_path))
+            optim.param_groups[0]["lr"] = min_lr + (max_lr - min_lr) * math.exp(-lr_decay * epoch)
+            expl_rate = min_expl + (max_expl - min_expl) * math.exp(-expl_decay * epoch)
 
-    def get_action(self, state: np.ndarray, expl_rate: float=0.0) -> tuple[int, float]:
-        cat = self.forward(state)
-        action = cat.sample() + 1 # Indexing convention
-        legal_actions = get_legal_moves(state, 1)
+        # Profile every y epochs
+        if not epoch % 500:
+            # Collect param traces
+            p1 = agent.layers[0].state_dict()['weight'][0, 0].item()
+            p2 = agent.layers[0].state_dict()['weight'][2, 4].item()
+            p3 = agent.layers[2].state_dict()['bias'][1].item()
+            p4 = agent.layers[2].state_dict()['weight'][1, 2].item()
+            param_traces[0].append(p1)
+            param_traces[1].append(p2)
+            param_traces[2].append(p3)
+            param_traces[3].append(p4)
 
-        explore = np.random.uniform(0, 1)
-        # If the action is legal and we DON'T explore, take that action
-        if action.item() in legal_actions and explore > expl_rate:
-            return action.item(), cat.log_prob(action - 1)
-        # Otherwise, take a random legal action
-        action = torch.tensor(np.random.choice(legal_actions))
-        return action.item(), cat.log_prob(action - 1)
+            # Collect training rewards
+            avg_reward = np.average(batch_rewards)
+            rewards.append(avg_reward)
+
+            # Profile against the opponent
+            training_scores = profile(agent, opp, 100, num_cards)
+            avg_training_score = np.average(training_scores)
+            avg_training_scores.append(avg_training_score)
+
+            # Profile against random agent
+            profiling_scores = profile(agent, profiling_agent, 100, num_cards)
+            avg_profiling_score = np.average(profiling_scores)
+            avg_profiling_scores.append(avg_profiling_score)
+
+            print("=" * 40)
+            print("Epoch {}: avg reward: {}".format(epoch, avg_reward))
+            print("Avg training score: {}. Avg profiling score: {}".format(avg_training_score, avg_profiling_score))
+            print("Current lr: {}".format(optim.param_groups[0]["lr"]))
+            print("Current expl rate: {}".format(expl_rate))
+
+    return avg_profiling_scores, avg_training_scores, rewards, param_traces
