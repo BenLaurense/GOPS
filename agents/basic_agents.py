@@ -5,7 +5,6 @@ from utils import unpack_state, get_legal_moves
 """
 Simple agents to play the game
 """
-# TODO: These should probably inherit from a base class with the correct method signatures
 
 
 class GOPSAgent(ABC):
@@ -14,6 +13,9 @@ class GOPSAgent(ABC):
 
 
 class HumanAgent(GOPSAgent):
+    """
+    Agent that takes command line input
+    """
     def __init__(self, *args):
         pass
 
@@ -21,7 +23,7 @@ class HumanAgent(GOPSAgent):
     def get_action(state: np.ndarray, *args) -> tuple[int, float | None]:
         # TODO: pygame support?
         sd = unpack_state(state)
-        print("="*40)
+        print("=" * 40)
         print("Your score is {}. Opponent's score is {}".format(sd["score_1"], sd["score_2"]))
         print("Current value card is {}".format(sd["curr_card"]))
         value_cards = np.nonzero(sd["val_cards"])[0] + 1
@@ -34,14 +36,17 @@ class HumanAgent(GOPSAgent):
         move = -1
         while move not in legal_moves:
             move = int(input("Choose a valid move:"))
-        return move, None   # get_action returns move and logprob
+        return move, None
 
 
 class RandomAgent(GOPSAgent):
+    """
+    Agent that takes random actions
+    """
     def __init__(self, *args):
         pass
 
     @staticmethod
     def get_action(state: np.ndarray, *args) -> tuple[int, float | None]:
         legal_moves = get_legal_moves(state, 1)
-        return np.random.choice(legal_moves), None  # get_action returns move and logprob
+        return np.random.choice(legal_moves), None

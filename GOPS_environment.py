@@ -1,6 +1,6 @@
 import numpy as np
 from utils import flip_state
-from BasicAgents import GOPSAgent
+from agents.basic_agents import GOPSAgent
 
 
 class GOPS:

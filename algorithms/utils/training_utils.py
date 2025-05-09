@@ -1,5 +1,5 @@
 from GOPS_environment import GOPS
-from BasicAgents import GOPSAgent
+from agents.basic_agents import GOPSAgent
 from utils import flip_state, sgn
 
 """
@@ -43,7 +43,7 @@ def collect_trajectories(
     return logprobs, scores
 
 
-def profile(agent, agent2, num_games, num_cards):
+def profile(agent: GOPSAgent, agent2: GOPSAgent, num_games: int, num_cards: int) -> list[int]:
     """
     Plays two agents against each other and collects the wins
     :param agent:
@@ -62,6 +62,6 @@ def profile(agent, agent2, num_games, num_cards):
             a1, _ = agent.get_action(s)
             a2, _ = agent2.get_action(flip_state(s))
             s_, done = G.step(a1, a2)
-        scores.append(sgn(s_[0, 0] - s_[0, 1]))
+        scores.append(sgn((s_[0, 0] - s_[0, 1]).item()))
         G.reset()
     return scores

@@ -2,11 +2,10 @@ import math
 import numpy as np
 import torch
 from GOPS_environment import GOPS
-from BasicAgents import GOPSAgent, RandomAgent
-from RLAgents import PolicyNetAgent
+from agents.basic_agents import RandomAgent
+from agents.rl_agents import PolicyNetAgent
 from tqdm import tqdm
-from training_utils import collect_trajectories, profile
-from utils import sgn
+from algorithms.utils.training_utils import collect_trajectories, profile
 
 """
 Basic ML benchmark: vanilla policy gradient.
@@ -26,7 +25,7 @@ def vanilla_policy_gradient(
         start_path: str = None, end_path: str = None
 ):
     """
-    Training loop with learning rate deca, and epsilon-greedy exploration
+    Training loop with learning rate deca , and epsilon-greedy exploration
     :param num_cards:
     :param num_epochs:
     :param max_lr:
