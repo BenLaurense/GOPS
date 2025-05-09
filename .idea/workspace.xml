@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="655aeb4c-26c5-41a7-9d7a-6d6daa3a6f85" name="Changes" comment="add naive and vanilla policy gradient algs">
-      <change afterPath="$PROJECT_DIR$/algorithms/naive_policy_gradient.py" afterDir="false" />
+    <list default="true" id="655aeb4c-26c5-41a7-9d7a-6d6daa3a6f85" name="Changes" comment="cleanup and document">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BasicAgents.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/BasicAgents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GOPS.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/example notebooks/GOPS.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GOPS_environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/GOPS_environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RLAgents.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents/RLAgents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reinforce.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/naive_policy_gradient.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/training_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/training_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vanilla_policy_gradient.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms/vanilla_policy_gradient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/GOPS.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/GOPS_Gameplay.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/GOPS_Gameplay.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +57,15 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/benla/Documents/GitHub/suit-trading-game-bot&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\benla\Desktop\Coding Projects\GOPS\algorithms\utils" />
+      <recent name="C:\Users\benla\Desktop\Coding Projects\GOPS\notebooks" />
+      <recent name="C:\Users\benla\Desktop\Coding Projects\GOPS\example notebooks" />
+      <recent name="C:\Users\benla\Desktop\Coding Projects\GOPS\algorithms" />
+      <recent name="C:\Users\benla\Desktop\Coding Projects\GOPS\agents" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="GOPS" />
@@ -237,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746393882166</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="cleanup and document">
+      <option name="closed" value="true" />
+      <created>1746823433506</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746823433506</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -256,6 +266,7 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fixes + testing in main" />
     <MESSAGE value="add naive and vanilla policy gradient algs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add naive and vanilla policy gradient algs" />
+    <MESSAGE value="cleanup and document" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup and document" />
   </component>
 </project>

@@ -46,6 +46,14 @@ class GOPS:
 
 
 def game_loop(game: GOPS, agent1: GOPSAgent, agent2: GOPSAgent, num_games: int) -> None:
+    """
+    Simple game loop
+    :param game: env to play
+    :param agent1: first GOPSAgent
+    :param agent2: second GOPSAgent
+    :param num_games: number of games to play
+    :return: none
+    """
     for _ in range(num_games):
         done = False
         s_ = game.state.copy()
